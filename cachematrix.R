@@ -1,28 +1,30 @@
+## This R script contains 2 functions, used to create an inverted matrix and cache it
+## makeCacheMatrix
 ## This function creates a special "matrix" object that can cache its inverse
 makeCacheMatrix <- function(x = matrix()) {
-        m<-NULL
+       invertedMatrix <-NULL
         set<-function(y){
                 x<<-y
-                m<<-NULL
+              invertedMatrix <<-NULL
                 }
         get<-function()x
-        setinverse<-function(inverse) m<<-inverse
-        getinverse<-function()m
-        list(set=set,get=get,setinverse=setinverse,getinverse=getinverse)
+        setInvertedMatrix <-function(inverse) invertedMatrix<<-inverse
+        getInvertedMatrix <-function() invertedMatrix
+        list(set=set,get=get,setInvertedMatrix=setInvertedMatrix,getInvertedMatrix=getInvertedMatrix)
 }
 
-
+## cacheSolve
 ## This function computes the inverse of the special "matrix" returned by makeCacheMatrix above. 
 ## If the inverse has already been calculated (and the matrix has not changed), then the cachesolve should retrieve the inverse from the cache.
 
 cacheSolve <- function(x, ...) {
-       m<-x$getinverse()
-        if(!is.null(m)))   {
+       invertedMatrix<-x$getInvertedMatrix()
+        if(!is.null(invertedMatrix)))   {
                 message("Getting cached data")
-                return (m)
+                return (invertedMatrix)
                            }
 data<-x$get()
-        m<-solve(data,...)
-        x$setinverse(m)
-        m
+        invertedMatrix<-solve(data,...)
+        x$setInvertedMatrix(invertedMatrix)
+        return(invertedMatrix)
 }
